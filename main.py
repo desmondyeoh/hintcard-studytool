@@ -1,40 +1,7 @@
 MISSING_RATE = 0.5
 WORD_MIN_LEN = 4
 
-
-def main():
-
-    qnas = [[y.strip() for y in x.split('---')] for x in b.split('===')]
-
-    import random
-    import re
-
-    random.shuffle(qnas)
-
-    for qi in range(len(qnas)):
-        print('\n[Question %d / %d]' % ((qi+1), len(qnas)))
-        q = qnas[qi][0]
-        a = qnas[qi][1]
-        ca = a
-
-        matches = re.findall(r"\w+(?:-\w+)*", a) # match english words, incl. those with hypthens
-        matches = [x for x in matches if len(x) >= WORD_MIN_LEN] # only those words with at least WORD_MIN_LEN long
-        random.shuffle(matches)
-        hiddens = matches[:int(MISSING_RATE * len(matches))]
-
-        for i, hidden in enumerate(hiddens):
-            a = re.sub(r"\b"+hidden+r"\b", '*'*len(hidden), a)
-
-        print(q)
-        input('hint >')
-        print('---')
-        print(a)
-        input('ans >')
-
-        print(ca)
-        input('next question >')
-
-b = """
+DATA = """
 Explain two main reasons why use AI to play games in both player and non-player role. Give example games for each reason
 ---
 1. Playing to win
@@ -327,6 +294,39 @@ games and AI techniques that can be used to play them
 	 Use text commands to play game, natural language processing
 	 Z-machine, Long short-term memory (LSTM) networks + deep Q network
 """
+
+
+def main():
+    qnas = [[y.strip() for y in x.split('---')] for x in DATA.split('===')]
+    
+    import random
+    import re
+
+    random.shuffle(qnas)
+
+    for qi in range(len(qnas)):
+        print('\n[Question %d / %d]' % ((qi+1), len(qnas)))
+        q = qnas[qi][0]
+        a = qnas[qi][1]
+        ca = a
+
+        matches = re.findall(r"\w+(?:-\w+)*", a) # match english words, incl. those with hypthens
+        matches = [x for x in matches if len(x) >= WORD_MIN_LEN] # only those words with at least WORD_MIN_LEN long
+        random.shuffle(matches)
+        hiddens = matches[:int(MISSING_RATE * len(matches))]
+
+        for i, hidden in enumerate(hiddens):
+            a = re.sub(r"\b"+hidden+r"\b", '*'*len(hidden), a)
+
+        print(q)
+        input('hint >')
+        print('---')
+        print(a)
+        input('ans >')
+
+        print(ca)
+        input('next question >')
+
 
 if __name__ == '__main__':
     main()
