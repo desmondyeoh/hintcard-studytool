@@ -1,7 +1,7 @@
 # hintcard-studytool
 Instead of trying to remember entire answer of the flash card, this app asks you to remember a small portion of answer at first, by hiding `MISSING_RATE` (0-1) parts of texts in the answer. You can control the `MISSING_RATE` value by gradually increasing it to `1` (hide the entire answer).
 
-**Demo:**
+**Demo:**  
 ![Demo Image](demo.png)
 
 
